@@ -50,8 +50,6 @@ async def inline_faq_handler(inline_query: types.InlineQuery, bot: Bot, session)
     except Exception as e:
         logger.error(f"Error in inline_faq_handler: {e}")
         await bot.answer_inline_query(inline_query.id, results=[], cache_time=1)
-        # Optionally, отправьте пользователю уведомление о проблеме
-        # await bot.send_message(inline_query.from_user.id, "Произошла ошибка при обработке вашего запроса.")
 
 
 @router.callback_query(lambda c: c.data.startswith("faq"))
