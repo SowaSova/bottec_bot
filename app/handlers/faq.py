@@ -13,7 +13,9 @@ router = Router()
 
 
 @router.inline_query()
-async def inline_faq_handler(inline_query: types.InlineQuery, bot: Bot, session):
+async def inline_faq_handler(
+    inline_query: types.InlineQuery, bot: Bot, session
+):
     """
     Обработчик для обработки inline-запросов с FAQ.
     """
@@ -28,7 +30,9 @@ async def inline_faq_handler(inline_query: types.InlineQuery, bot: Bot, session)
             result = InlineQueryResultArticle(
                 id=str(faq.id),
                 title=faq.question,
-                input_message_content=InputTextMessageContent(message_text=faq.answer),
+                input_message_content=InputTextMessageContent(
+                    message_text=faq.answer
+                ),
             )
             results.append(result)
 
@@ -43,7 +47,9 @@ async def inline_faq_handler(inline_query: types.InlineQuery, bot: Bot, session)
                 )
             )
 
-        await bot.answer_inline_query(inline_query.id, results=results, cache_time=1)
+        await bot.answer_inline_query(
+            inline_query.id, results=results, cache_time=1
+        )
         logger.info(
             f"User {inline_query.from_user.id} performed FAQ inline query: '{query}'"
         )
@@ -70,8 +76,12 @@ async def show_faq(callback_query: types.CallbackQuery, bot: Bot):
             reply_markup=get_faq_instruction_keyboard(),
         )
         await callback_query.answer()
-        logger.info(f"User {callback_query.from_user.id} requested FAQ instructions.")
+        logger.info(
+            f"User {callback_query.from_user.id} requested FAQ instructions."
+        )
     except Exception as e:
         logger.error(f"Error in show_faq: {e}")
-        await callback_query.message.reply("Произошла ошибка при отображении FAQ.")
+        await callback_query.message.reply(
+            "Произошла ошибка при отображении FAQ."
+        )
         await callback_query.answer()
