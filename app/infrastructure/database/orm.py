@@ -1,4 +1,3 @@
-import models  # noqa
 from core.config import settings
 from sqlalchemy.ext.asyncio import (
     AsyncEngine,
